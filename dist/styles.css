@@ -8,3 +8,74 @@
 body, input, textarea, button {
   font-family: sans-serif;
 }
+
+#main-header {
+  background-color: #353545;
+  box-shadow: 1px 1px 5px #000;
+  z-index: 10;
+}
+
+#main-header h1 {
+  padding: 10px 0 10px 50px;
+  color: #F7F7F7;
+}
+
+#main {
+  display: flex;
+  flex-direction: row;
+}
+
+#projects {
+  background-color: #353545;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -10;
+  padding-top: 80px;
+}
+
+#projects header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgb(0, 106, 226);
+}
+
+#projects h2 {
+  color: #F7F7F7;
+  margin-right: 5px;
+}
+
+#projects img {
+  cursor: pointer;
+  transition: all .2s;
+}
+
+#projects img:hover {
+  transform: scale(1.1);
+}
+
+#project-list {
+  margin-top: 10px;
+}
+
+#project-list li {
+  color: #EEE;
+  font-size: 18px;
+  list-style-type: none;
+  cursor: pointer;
+  border-bottom: 1px solid #353545;
+  padding-bottom: 5px;
+  transition: all .2s;
+}
+
+#project-list li:hover {
+  color: #F7F7F7;
+  border-color: #F7F7F7;
+}
