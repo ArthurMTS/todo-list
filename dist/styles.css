@@ -12,6 +12,10 @@ body, input, textarea, button {
 #main-header {
   background-color: #353545;
   box-shadow: 1px 1px 5px #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 10;
 }
 
@@ -27,15 +31,11 @@ body, input, textarea, button {
 
 #projects {
   background-color: #353545;
-  width: 150px;
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -10;
   padding-top: 80px;
 }
 
@@ -77,5 +77,43 @@ body, input, textarea, button {
 
 #project-list li:hover {
   color: #F7F7F7;
-  border-color: #F7F7F7;
+  border-color: rgb(0, 106, 226);
+}
+
+#project-content {
+  background-color: #252535;
+  width: 100%;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#project-content h2 {
+  font-size: 35px;
+  color: #F7F7F7;
+}
+
+#project-content p {
+  color: #EEE;
+  font-size: 18px;
+  margin: 10px 50px;
+  text-align: justify;
+  background-color: #353545;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+#project-content img {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  transition: all .2s;
+  cursor: pointer;
+}
+
+#project-content img:hover {
+  transform: scale(1.1);
 }

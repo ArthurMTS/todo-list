@@ -19,6 +19,19 @@ class View {
     /* SECTION */
     this.projectContent = this.createElement('section');
     this.projectContent.id = 'project-content';
+
+    this.projectTitle = this.createElement('h2');
+    this.projectTitle.textContent = 'Project title';
+
+    this.projectDescription = this.createElement('p');
+    this.projectDescription.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquet libero nec quam semper molestie. Maecenas fermentum diam non neque sollicitudin, ut lobortis eros rutrum. Ut vitae ullamcorper sem. Ut ullamcorper urna ex, iaculis malesuada dolor laoreet vel. Nullam pharetra iaculis mollis. Ut ac rhoncus elit, vel gravida nunc. Nam nisi libero, volutpat et felis at, varius sodales nunc. Donec et porta sem. Nullam posuere vitae augue in eleifend. Praesent tristique egestas nisi, non imperdiet libero rutrum quis. Maecenas eleifend lectus nec dolor aliquet sagittis. Nulla porta consequat nunc eu gravida. Sed porta ipsum id libero aliquet, eu aliquam tortor pulvinar. Cras scelerisque a lacus vitae blandit.';
+
+    this.projectTodos = this.createElement('ul');
+
+    this.addTodoButton = this.createElement('img');
+    this.addTodoButton.src = './../src/assets/plus-circle.svg';
+
+    this.projectContent.append(this.projectTitle, this.projectDescription, this.projectTodos, this.addTodoButton);
     /* SECTION END */
 
     /* ASIDE */
