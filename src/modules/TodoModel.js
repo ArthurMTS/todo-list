@@ -7,7 +7,8 @@ class TodoModel {
       title,
       description,
       dueData,
-      priority
+      priority,
+      checked: false,
     }
 
     todos.push(todo);
@@ -33,6 +34,23 @@ class TodoModel {
 
   deleteTodo(todos, todoId) {
     todos = todos.filter(todo => todo.id !== todoId);
+
+    return todos;
+  }
+
+  toggleTodo(todos, todoId) {
+    todos = todos.map(todo => 
+      todo.id === todoId ?  
+        {
+          id: todo.id,
+          title: todo.title,
+          description: todo.description,
+          dueData: todo.dueData,
+          priority: todo.priority,
+          checked: !todo.checked,
+        } :
+        todo
+    );
 
     return todos;
   }

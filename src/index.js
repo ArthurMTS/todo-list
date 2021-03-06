@@ -1,7 +1,6 @@
-import './modules/View';
 import ProjectModel from './modules/ProjectModel';
 import TodoModel from './modules/TodoModel';
+import Controller from './modules/Controller';
+import View from './modules/View';
 
-const newProjectModel = new ProjectModel(new TodoModel());
-
-console.log(newProjectModel.projects);
+new Controller(new View(), new ProjectModel(new TodoModel()));

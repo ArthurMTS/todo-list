@@ -74,6 +74,18 @@ class View {
 
     return element;
   }
+
+  bindAddProject(handler) {}
+
+  bindEditProject(handler) {}
+
+  bindDeleteProject(handler) {}
+
+  bindAddTodo(handler) {}
+
+  bindEditTodo(handler) {}
+
+  bindDeleteTodo(handler) {}
 }
 
-export default new View();
+export default View;

@@ -28,13 +28,19 @@ class ProjectModel {
     }
   
     this.deleteTodo = (projectId, todoId) => {
-      this.projects = this.projects.filter(project => {
-        if (project.id === projectId) {
-          project.todos = TodoModel.deleteTodo(project.todos, todoId);
-        }
+      this.projects = this.projects.filter(project => 
+        project.id === projectId ?
+          project.todos = TodoModel.deleteTodo(project.todos, todoId) :
+          project
+      );
+    }
 
-        return project;
-      });
+    this.toggleTodo = (projectId, todoId) => {
+      this.projects = this.projects.filter(project => 
+        project.id === projectId ?
+          project.todos = TodoModel.toggleTodo(project.todos, todoId) :
+          project
+      );
     }
   }
 
