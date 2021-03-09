@@ -1,7 +1,9 @@
 class ProjectModel {
   constructor(TodoModel) {
     this.projects = [
-      { id: 1, title: '', description: '', todos: [] }
+      { id: 1, title: 'Default', description: 'lorem ipsum dolor amet', todos: [
+        {id: 1, title: 'Test', description: 'lorem ipsum', dueData: '25/03/2021', priority: 'low', checked: true}
+      ] }
     ];
 
     this.addTodo = (projectId, title, description = '', dueData = '', priority = 'low') => {

@@ -21,14 +21,12 @@ class View {
     this.projectContent.id = 'project-content';
 
     this.projectTitle = this.createElement('h2');
-    this.projectTitle.textContent = 'Project title';
 
     this.projectDescription = this.createElement('p');
-    this.projectDescription.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquet libero nec quam semper molestie. Maecenas fermentum diam non neque sollicitudin, ut lobortis eros rutrum. Ut vitae ullamcorper sem. Ut ullamcorper urna ex, iaculis malesuada dolor laoreet vel. Nullam pharetra iaculis mollis. Ut ac rhoncus elit, vel gravida nunc. Nam nisi libero, volutpat et felis at, varius sodales nunc. Donec et porta sem. Nullam posuere vitae augue in eleifend. Praesent tristique egestas nisi, non imperdiet libero rutrum quis. Maecenas eleifend lectus nec dolor aliquet sagittis. Nulla porta consequat nunc eu gravida. Sed porta ipsum id libero aliquet, eu aliquam tortor pulvinar. Cras scelerisque a lacus vitae blandit.';
 
     this.projectTodos = this.createElement('ul');
 
-    this.addTodoButton = this.createElement('img');
+    this.addTodoButton = this.createElement('img', 'add');
     this.addTodoButton.src = './../src/assets/plus-circle.svg';
     this.addTodoButton.addEventListener('click', () => {
       this.todoForm.style.display = 'flex';
@@ -54,11 +52,6 @@ class View {
 
     this.projectList = this.createElement('ul');
     this.projectList.id = 'project-list';
-    
-    this.projectItem = this.createElement('li');
-    this.projectItem.textContent = 'Projeto';
-
-    this.projectList.append(this.projectItem);
     
     this.projectsHeader.append(this.projectsHeaderTitle, this.addProjectButton);
     this.projects.append(this.projectsHeader, this.projectList);
@@ -164,7 +157,67 @@ class View {
     return element;
   }
 
-  bindAddProject(handler) {}
+  displayProjectList(projectList) {
+    this.projectList.innerHTML = '';
+
+    projectList.forEach(project => {
+      const projectItem = this.createElement('li');
+      projectItem.textContent = project.title;
+      projectItem.id = project.id;
+
+      projectItem.addEventListener('click', () => {
+        this.displayProject(project);
+      });
+
+      this.projectList.append(projectItem);
+    });
+  }
+
+  displayProject(project) {
+    this.projectTitle.textContent = project.title;
+    this.projectDescription.textContent = project.description;
+    this.displayTodos(project.todos);
+  }
+
+  displayTodos(todoList) {
+    this.projectTodos.innerHTML = '';
+
+    todoList.forEach(todo => {
+      const todoItem = this.createElement('li', 'todo');
+      todoItem.id = todo.id;
+
+      const toggle = this.createElement('input');
+      toggle.type = 'checkbox';
+      toggle.checked = todo.checked;
+
+      const text = this.createElement('span');
+      text.textContent = todo.title;
+      if (todo.checked) text.style.textDecoration = 'line-through';
+
+      const deleteButton = this.createElement('img');
+      deleteButton.src = './../src/assets/trash-2.svg';
+
+      todoItem.append(toggle, text, deleteButton);
+
+      this.projectTodos.append(todoItem);
+    });
+  }
+
+  bindAddProject(handler) {
+    this.projectForm.addEventListener('submit', event => {
+      event.preventDefault();
+
+      const title = this.inputProjectTitle.value;
+      const description = this.inputProjectDescription.value;
+
+      this.inputProjectTitle.value = '';
+      this.inputProjectDescription.value = '';
+
+      if (title) {
+        handler(title, description);
+      }
+    });
+  }
 
   bindEditProject(handler) {}
 
@@ -175,6 +228,8 @@ class View {
   bindEditTodo(handler) {}
 
   bindDeleteTodo(handler) {}
+
+  bindToggleTodo(handler) {}
 }
 
 export default View;
