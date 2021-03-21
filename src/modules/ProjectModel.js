@@ -2,7 +2,9 @@ class ProjectModel {
   constructor(TodoModel) {
     this.projects = [
       { id: 1, title: 'Default', description: 'lorem ipsum dolor amet', todos: [
-        {id: 1, title: 'Test', description: 'lorem ipsum', dueData: '25/03/2021', priority: 'low', checked: true}
+        {id: 1, title: 'Test', description: 'lorem ipsum', dueData: '25/03/2021', priority: 'low', checked: true},
+        {id: 2, title: 'Tesasdasdsdasdasdadt', description: 'lorem ipsum', dueData: '25/03/2021', priority: 'low', checked: false},
+        {id: 3, title: 'Test', description: 'lorem ipsum', dueData: '25/03/2021', priority: 'low', checked: true}
       ] }
     ];
 
@@ -58,16 +60,16 @@ class ProjectModel {
   }
 
   editProject(id, title, description) {
-    this.projects = this.projects.map(project => 
-      project.id === id ? 
+    this.projects = this.projects.map(project =>
+      project.id == id ? 
         { 
           id: project.id,
           title: title ? title : project.title,
           description: description ? description : project.description,
           todos: project.todos,  
-        } :
+        } : 
         project
-    );
+      );
   }
 
   deleteProject(id) {

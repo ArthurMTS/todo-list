@@ -20,9 +20,12 @@ class View {
     this.projectContent = this.createElement('section');
     this.projectContent.id = 'project-content';
 
-    this.projectTitle = this.createElement('h2');
+    this.projectTitle = this.createElement('input');
 
-    this.projectDescription = this.createElement('p');
+    this.projectDescription = this.createElement('textarea');
+
+    this.saveProjectButton = this.createElement('button', 'button');
+    this.saveProjectButton.textContent = 'Save';
 
     this.projectTodos = this.createElement('ul');
 
@@ -32,7 +35,13 @@ class View {
       this.todoForm.style.display = 'flex';
     });
 
-    this.projectContent.append(this.projectTitle, this.projectDescription, this.projectTodos, this.addTodoButton);
+    this.projectContent.append(
+      this.projectTitle, 
+      this.projectDescription, 
+      this.saveProjectButton,
+      this.projectTodos, 
+      this.addTodoButton
+    );
     /* SECTION END */
 
     /* ASIDE */
@@ -162,8 +171,15 @@ class View {
 
     projectList.forEach(project => {
       const projectItem = this.createElement('li');
-      projectItem.textContent = project.title;
       projectItem.id = project.id;
+
+      const text = this.createElement('span');
+      text.textContent = project.title;
+
+      const deleteButton = this.createElement('img');
+      deleteButton.src = './../src/assets/trash-2.svg';
+
+      projectItem.append(text, deleteButton);
 
       projectItem.addEventListener('click', () => {
         this.displayProject(project);
@@ -174,8 +190,9 @@ class View {
   }
 
   displayProject(project) {
-    this.projectTitle.textContent = project.title;
-    this.projectDescription.textContent = project.description;
+    this.projectTitle.value = project.title;
+    this.projectTitle.id = project.id;
+    this.projectDescription.value = project.description;
     this.displayTodos(project.todos);
   }
 
@@ -219,7 +236,15 @@ class View {
     });
   }
 
-  bindEditProject(handler) {}
+  bindEditProject(handler) {
+    this.saveProjectButton.addEventListener('click', () => {
+      const id = this.projectTitle.id;
+      const title = this.projectTitle.value;
+      const description = this.projectDescription.value;
+
+      handler(id, title, description);
+    });
+  }
 
   bindDeleteProject(handler) {}
 

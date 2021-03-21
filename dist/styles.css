@@ -63,6 +63,10 @@ body, input, textarea, button {
 
 #project-list {
   margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #project-list li {
@@ -71,13 +75,18 @@ body, input, textarea, button {
   list-style-type: none;
   cursor: pointer;
   border-bottom: 1px solid #353545;
-  padding-bottom: 5px;
+  padding: 10px;
   transition: all .2s;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #project-list li:hover {
   color: #F7F7F7;
-  border-color: rgb(0, 106, 226);
+  background-color: #252535;
 }
 
 #project-content {
@@ -89,15 +98,18 @@ body, input, textarea, button {
   align-items: center;
 }
 
-#project-content h2 {
+#project-content input {
   font-size: 35px;
-  color: #F7F7F7;
+  color: #252535;
+  text-align: center;
 }
 
-#project-content p {
+#project-content textarea {
   color: #EEE;
   font-size: 18px;
   margin: 10px 50px;
+  width: 50vw;
+  min-height: 20vh;
   text-align: justify;
   background-color: #353545;
   padding: 15px;
@@ -116,6 +128,49 @@ body, input, textarea, button {
 
 #project-content .add:hover {
   transform: scale(1.1);
+}
+
+#project-content ul {
+  display: flex;
+  flex-direction: column;
+  margin: 50px 10px;
+}
+
+.todo {
+  display: flex;
+  justify-content: flex-start;
+  background-color: #EEE;
+  padding: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  position: relative;
+}
+
+.todo:hover {
+  box-shadow: 5px 5px 10px #000;
+}
+
+.todo span {
+  padding: 0 10px;
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.todo input {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.todo img {
+  transition: all .2s;
+  position: absolute;
+  right: 20px;
+}
+
+.todo img:hover {
+  transform: rotate(25deg);
 }
 
 .form {
@@ -182,33 +237,17 @@ body, input, textarea, button {
   color: #F7F7F7;
 }
 
-.todo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #EEE;
-  padding: 20px;
+.button {
+  padding: 10px;
+  color: #F7F7F7;
+  cursor: pointer;
+  background-color: rgb(0, 218, 73);
+  border: none;
   border-radius: 5px;
-  cursor: pointer;
-}
-
-.todo:hover {
-  box-shadow: 5px 5px 10px #000;
-}
-
-.todo span {
-  padding: 0 10px;
-  font-size: 18px;
-}
-
-.todo input {
-  cursor: pointer;
-}
-
-.todo img {
+  font-size: 20px;
   transition: all .2s;
 }
 
-.todo img:hover {
-  transform: rotate(25deg);
+.button:hover {
+  transform: scale(1.1);
 }

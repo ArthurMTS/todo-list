@@ -8,11 +8,14 @@ class Controller {
       this.onProjectListChange(this.model.projects);
     }
 
-    this.handleRenderProject = () => {}
-
-    this.handleEditProject = () => {}
+    this.handleEditProject = (projectID, title, description) => {
+      this.model.editProject(projectID, title, description);
+      this.onProjectListChange(this.model.projects);
+    }
 
     this.handleDeleteProject = () => {}
+
+    this.handleRenderProject = () => {}
 
     this.handleAddTodo = () => {}
 
@@ -23,6 +26,7 @@ class Controller {
     this.handleToggleTodo = () => {}
 
     this.view.bindAddProject(this.handleAddProject);
+    this.view.bindEditProject(this.handleEditProject);
 
     this.onProjectListChange(this.model.projects);
   }
