@@ -166,6 +166,10 @@ class View {
     return element;
   }
 
+  bindHandlerDeleteProject(handler) {
+    this.handlerDeleteProject = handler;
+  }
+
   displayProjectList(projectList) {
     this.projectList.innerHTML = '';
 
@@ -187,6 +191,8 @@ class View {
 
       this.projectList.append(projectItem);
     });
+
+    this.bindDeleteProject(this.handlerDeleteProject);
   }
 
   displayProject(project) {
@@ -238,7 +244,7 @@ class View {
 
   bindEditProject(handler) {
     this.saveProjectButton.addEventListener('click', () => {
-      const id = this.projectTitle.id;
+      const id = Number(this.projectTitle.id);
       const title = this.projectTitle.value;
       const description = this.projectDescription.value;
 
@@ -246,7 +252,15 @@ class View {
     });
   }
 
-  bindDeleteProject(handler) {}
+  bindDeleteProject(handler) {
+    const deleteButtons = document.querySelectorAll('#project-list li img');
+    deleteButtons.forEach(deleteButton => {
+      deleteButton.addEventListener('click', (e) => {
+        const id = Number(e.path[1].id);
+        handler(id);
+      });
+    });
+  }
 
   bindAddTodo(handler) {}
 

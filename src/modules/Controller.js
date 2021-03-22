@@ -13,7 +13,10 @@ class Controller {
       this.onProjectListChange(this.model.projects);
     }
 
-    this.handleDeleteProject = () => {}
+    this.handleDeleteProject = (projectID) => {
+      this.model.deleteProject(projectID);
+      this.onProjectListChange(this.model.projects);
+    }
 
     this.handleRenderProject = () => {}
 
@@ -27,6 +30,7 @@ class Controller {
 
     this.view.bindAddProject(this.handleAddProject);
     this.view.bindEditProject(this.handleEditProject);
+    this.view.bindHandlerDeleteProject(this.handleDeleteProject);
 
     this.onProjectListChange(this.model.projects);
   }

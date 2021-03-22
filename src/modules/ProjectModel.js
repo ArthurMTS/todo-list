@@ -61,7 +61,7 @@ class ProjectModel {
 
   editProject(id, title, description) {
     this.projects = this.projects.map(project =>
-      project.id == id ? 
+      project.id === id ? 
         { 
           id: project.id,
           title: title ? title : project.title,
