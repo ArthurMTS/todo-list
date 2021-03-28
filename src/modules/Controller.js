@@ -18,9 +18,13 @@ class Controller {
       this.onProjectListChange(this.model.projects);
     }
 
-    this.handleRenderProject = () => {}
+    this.handleAddTodo = (projectID, title, description, dueData, priority) => {
+      projectID = Number(projectID);
 
-    this.handleAddTodo = () => {}
+      this.model.addTodo(projectID, title, description, dueData, priority);
+      const [ project ] = this.model.projects.map(project => projectID === project.id && project);
+      this.view.displayTodos(project.todos);
+    }
 
     this.handleEditTodo = () => {}
 
@@ -30,7 +34,8 @@ class Controller {
 
     this.view.bindAddProject(this.handleAddProject);
     this.view.bindEditProject(this.handleEditProject);
-    this.view.bindHandlerDeleteProject(this.handleDeleteProject);
+    this.view.bindHandleDeleteProject(this.handleDeleteProject);
+    this.view.bindAddTodo(this.handleAddTodo);
 
     this.onProjectListChange(this.model.projects);
   }

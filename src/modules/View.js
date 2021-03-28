@@ -33,6 +33,7 @@ class View {
     this.addTodoButton.src = './../src/assets/plus-circle.svg';
     this.addTodoButton.addEventListener('click', () => {
       this.todoForm.style.display = 'flex';
+      this.getElement('body').classList.add('form-open');
     });
 
     this.projectContent.append(
@@ -57,6 +58,7 @@ class View {
     this.addProjectButton.src = './../src/assets/plus-circle.svg';
     this.addProjectButton.addEventListener('click', () => {
       this.projectForm.style.display = 'flex';
+      this.getElement('body').classList.add('form-open');
     });
 
     this.projectList = this.createElement('ul');
@@ -87,6 +89,7 @@ class View {
     this.closeProjectForm.src = './../src/assets/x.svg';
     this.closeProjectForm.addEventListener('click', () => {
       this.projectForm.style.display = 'none';
+      this.getElement('body').classList.remove('form-open');
     });
 
     this.projectForm.append(
@@ -140,6 +143,7 @@ class View {
     this.closeTodoForm.src = './../src/assets/x.svg';
     this.closeTodoForm.addEventListener('click', () => {
       this.todoForm.style.display = 'none';
+      this.getElement('body').classList.remove('form-open');
     });
 
     this.todoForm.append(
@@ -166,8 +170,8 @@ class View {
     return element;
   }
 
-  bindHandlerDeleteProject(handler) {
-    this.handlerDeleteProject = handler;
+  bindHandleDeleteProject(handler) {
+    this.handleDeleteProject = handler;
   }
 
   displayProjectList(projectList) {
@@ -185,14 +189,15 @@ class View {
 
       projectItem.append(text, deleteButton);
 
-      projectItem.addEventListener('click', () => {
+      projectItem.addEventListener('click', (e) => {
+        if (e.target.localName === 'img') return;
         this.displayProject(project);
       });
 
       this.projectList.append(projectItem);
     });
 
-    this.bindDeleteProject(this.handlerDeleteProject);
+    this.bindDeleteProject(this.handleDeleteProject);
   }
 
   displayProject(project) {
@@ -256,13 +261,33 @@ class View {
     const deleteButtons = document.querySelectorAll('#project-list li img');
     deleteButtons.forEach(deleteButton => {
       deleteButton.addEventListener('click', (e) => {
-        const id = Number(e.path[1].id);
-        handler(id);
+        if (window.confirm('Are you sure?')) {
+          const id = Number(e.path[1].id);
+          handler(id);
+        }
       });
     });
   }
 
-  bindAddTodo(handler) {}
+  bindAddTodo(handler) {
+    this.todoForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      if (!this.projectTitle.id) return;
+
+      const title = this.inputTodoTitle.value;
+      const description = this.inputTodoDescription.value;
+      const dueData = this.inputTodoDate.value;
+      const priority = this.inputTodoPriority.value;
+
+      handler(this.projectTitle.id, title, description, dueData, priority);
+
+      this.inputTodoTitle.value = '';
+      this.inputTodoDescription.value = '';
+      this.inputTodoDate.value = '';
+      this._default.selected = true;
+    });
+  }
 
   bindEditTodo(handler) {}
 
