@@ -174,6 +174,14 @@ class View {
     this.handleDeleteProject = handler;
   }
 
+  bindHandleDeleteTodo(handler) {
+    this.handleDeleteTodo = handler;
+  }
+
+  bindHandleToggleTodo(handler) {
+    this.handleToggleTodo = handler;
+  }
+
   displayProjectList(projectList) {
     this.projectList.innerHTML = '';
 
@@ -229,6 +237,9 @@ class View {
 
       this.projectTodos.append(todoItem);
     });
+
+    this.bindDeleteTodo(this.handleDeleteTodo);
+    this.bindToggleTodo(this.handleToggleTodo);
   }
 
   bindAddProject(handler) {
@@ -291,9 +302,31 @@ class View {
 
   bindEditTodo(handler) {}
 
-  bindDeleteTodo(handler) {}
+  bindDeleteTodo(handler) {
+    const todos = document.querySelectorAll('.todo img');
+    todos.forEach(todo => {
+      todo.addEventListener('click', e => {
+        if(!window.confirm('Are you sure?')) return;
 
-  bindToggleTodo(handler) {}
+        const todoID = e.path[1].id;
+        const projectID = this.projectTitle.id;
+
+        handler(projectID, todoID);
+      });
+    });
+  }
+
+  bindToggleTodo(handler) {
+    const todos = document.querySelectorAll('.todo input');
+    todos.forEach(todo => {
+      todo.addEventListener('click', e => {
+        const todoID = e.path[1].id;
+        const projectID = this.projectTitle.id;
+
+        handler(projectID, todoID);
+      });
+    });
+  }
 }
 
 export default View;

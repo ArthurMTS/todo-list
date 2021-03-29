@@ -22,20 +22,33 @@ class Controller {
       projectID = Number(projectID);
 
       this.model.addTodo(projectID, title, description, dueData, priority);
-      const [ project ] = this.model.projects.map(project => projectID === project.id && project);
-      this.view.displayTodos(project.todos);
+      this.onTodoListChange(projectID);
     }
 
     this.handleEditTodo = () => {}
 
-    this.handleDeleteTodo = () => {}
+    this.handleDeleteTodo = (projectID, todoID) => {
+      projectID = Number(projectID);
+      todoID = Number(todoID);
 
-    this.handleToggleTodo = () => {}
+      this.model.deleteTodo(projectID, todoID);
+      this.onTodoListChange(projectID);
+    }
+
+    this.handleToggleTodo = (projectID, todoID) => {
+      projectID = Number(projectID);
+      todoID = Number(todoID);
+
+      this.model.toggleTodo(projectID, todoID);
+      this.onTodoListChange(projectID);
+    }
 
     this.view.bindAddProject(this.handleAddProject);
     this.view.bindEditProject(this.handleEditProject);
     this.view.bindHandleDeleteProject(this.handleDeleteProject);
     this.view.bindAddTodo(this.handleAddTodo);
+    this.view.bindHandleDeleteTodo(this.handleDeleteTodo);
+    this.view.bindHandleToggleTodo(this.handleToggleTodo);
 
     this.onProjectListChange(this.model.projects);
   }
@@ -44,7 +57,10 @@ class Controller {
     this.view.displayProjectList(projects);
   }
 
-  onTodoListChange() {}
+  onTodoListChange(projectID) {
+    const [ project ] = this.model.projects.map(project => projectID === project.id && project);
+    this.view.displayTodos(project.todos);
+  }
 }
 
 export default Controller;
