@@ -215,12 +215,105 @@ class View {
     this.displayTodos(project.todos);
   }
 
+  displayTodoInfo(todo) {
+    const body = this.getElement('body');
+
+    const editTodoForm = this.createElement('form', 'form');
+
+    const todoTitle = this.createElement('input', 'input');
+    todoTitle.placeholder = 'Todo Title';
+    todoTitle.required = true;
+    todoTitle.value = todo.title;
+    todoTitle.id = 'title';
+
+    const titleLable = this.createElement('label');
+    titleLable.textContent = 'Title';
+    titleLable.for = '#title'
+    titleLable.append(todoTitle);
+
+    const todoDescription = this.createElement('textarea');
+    todoDescription.placeholder = 'Todo Description';
+    todoDescription.textContent = todo.description;
+    todoDescription.id = 'description';
+
+    const descriptionLable = this.createElement('label');
+    descriptionLable.textContent = 'Description';
+    descriptionLable.for = '#description'
+    descriptionLable.append(todoDescription);
+
+    const todoDate = this.createElement('input', 'input');
+    todoDate.type = 'date';
+    todoDate.value = todo.dueData.replaceAll('/', '-').split('-').reverse().join('-');
+    todoDate.id = 'date';
+
+    const dateLable = this.createElement('label');
+    dateLable.textContent = 'Date';
+    dateLable.for = '#date'
+    dateLable.append(todoDate);
+
+    const todoPriority = this.createElement('select', 'input');
+
+    const priorityLable = this.createElement('label');
+    priorityLable.textContent = 'Priority';
+    priorityLable.for = '#priority'
+    priorityLable.append(todoPriority);
+    
+    const _default = this.createElement('option');
+    _default.disabled = true;
+    _default.selected = true;
+    _default.textContent = 'Select Priority';
+
+    const _low = this.createElement('option');
+    _low.value = 'low';
+    _low.textContent = 'Low';
+    if (todo.priority === 'low') _low.selected = true;
+
+    const _medium = this.createElement('option');
+    _medium.value = 'medium';
+    _medium.textContent = 'Medium';
+    if (todo.priority === 'medium') _medium.selected = true;
+
+    const _high = this.createElement('option');
+    _high.value = 'high';
+    _high.textContent = 'High';
+    if (todo.priority === 'high') _high.selected = true;
+
+    todoPriority.append(_default, _low, _medium, _high);
+
+    const submit = this.createElement('button', 'button');
+    submit.textContent = 'Save';
+
+    const close = this.createElement('img', 'close');
+    close.src = './../src/assets/x.svg';
+    close.addEventListener('click', () => {
+      body.removeChild(editTodoForm);
+      body.classList.remove('form-open');
+    });
+
+    editTodoForm.append(
+      titleLable,
+      descriptionLable,
+      dateLable,
+      priorityLable,
+      submit,
+      close
+    );
+
+    body.append(editTodoForm);
+    body.classList.add('form-open');
+  }
+
   displayTodos(todoList) {
     this.projectTodos.innerHTML = '';
 
     todoList.forEach(todo => {
       const todoItem = this.createElement('li', 'todo');
       todoItem.id = todo.id;
+      todoItem.addEventListener('click', e => {
+        if (e.srcElement.localName != 'span' &&
+            e.srcElement.localName != 'li') return;
+        this.displayTodoInfo(todo);
+      });
 
       const toggle = this.createElement('input');
       toggle.type = 'checkbox';
