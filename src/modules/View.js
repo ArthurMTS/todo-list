@@ -182,6 +182,10 @@ class View {
     this.handleToggleTodo = handler;
   }
 
+  bindHandleEditTodo(handler) {
+    this.handleEditTodo = handler;
+  }
+
   displayProjectList(projectList) {
     this.projectList.innerHTML = '';
 
@@ -219,6 +223,8 @@ class View {
     const body = this.getElement('body');
 
     const editTodoForm = this.createElement('form', 'form');
+    editTodoForm.classList.add('todo-info');
+    editTodoForm.id = todo.id;
 
     const todoTitle = this.createElement('input', 'input');
     todoTitle.placeholder = 'Todo Title';
@@ -301,6 +307,7 @@ class View {
 
     body.append(editTodoForm);
     body.classList.add('form-open');
+    this.bindEditTodo(this.handleEditTodo);
   }
 
   displayTodos(todoList) {
@@ -393,7 +400,16 @@ class View {
     });
   }
 
-  bindEditTodo(handler) {}
+  bindEditTodo(handler) {
+    document.querySelector('.todo-info').addEventListener('submit', e => {
+      e.preventDefault();
+      const [ title, description, date, priority ] = e.target;
+      const todoID = e.target.id;
+      const projectID = this.projectTitle.id;
+
+      handler(projectID, todoID, title.value, description.value, date.value, priority.value);
+    });
+  }
 
   bindDeleteTodo(handler) {
     const todos = document.querySelectorAll('.todo img');

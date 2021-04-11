@@ -25,7 +25,15 @@ class Controller {
       this.onTodoListChange(projectID);
     }
 
-    this.handleEditTodo = () => {}
+    this.handleEditTodo = (projectID, todoID, title, description, dueData, priority) => {
+      projectID = Number(projectID);
+      todoID = Number(todoID);
+
+      dueData = dueData.split('-').reverse().join('/');
+
+      this.model.editTodo(projectID, todoID, title, description, dueData, priority);
+      this.onTodoListChange(projectID);
+    }
 
     this.handleDeleteTodo = (projectID, todoID) => {
       projectID = Number(projectID);
@@ -49,8 +57,10 @@ class Controller {
     this.view.bindAddTodo(this.handleAddTodo);
     this.view.bindHandleDeleteTodo(this.handleDeleteTodo);
     this.view.bindHandleToggleTodo(this.handleToggleTodo);
+    this.view.bindHandleEditTodo(this.handleEditTodo);
 
     this.onProjectListChange(this.model.projects);
+    if (this.model.projects.length > 0) this.view.displayProject(this.model.projects[0]);
   }
 
   onProjectListChange(projects) {
