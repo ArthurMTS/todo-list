@@ -1,6 +1,6 @@
 class ProjectModel {
   constructor(TodoModel) {
-    this.projects = [
+    this.projects = JSON.parse(localStorage.getItem('projects')) || [
       { id: 1, title: 'Default', description: 'lorem ipsum dolor amet', todos: [
         {id: 1, title: 'Test', description: 'lorem ipsum', dueData: '10/04/2021', priority: 'medium', checked: true}
       ] }

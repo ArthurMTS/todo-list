@@ -65,11 +65,17 @@ class Controller {
 
   onProjectListChange(projects) {
     this.view.displayProjectList(projects);
+    this._commit(this.model.projects);
   }
 
   onTodoListChange(projectID) {
     const [ project ] = this.model.projects.map(project => projectID === project.id && project);
     this.view.displayTodos(project.todos);
+    this._commit(this.model.projects);
+  }
+
+  _commit(projects) {
+    localStorage.setItem('projects', JSON.stringify(projects));
   }
 }
 
